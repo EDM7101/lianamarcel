@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "puzzle-lottery"
+version = "1.0.0"
+description = "GPU Bitcoin puzzle lottery orchestrator around VanitySearch"
+requires-python = ">=3.10"
+dependencies = [
+  "PyYAML>=6.0.1",
+  "rich>=13.7.0",
+  "requests>=2.31.0",
+  "cryptography>=42.0.0",
+]
+
+[project.scripts]
+puzzle-lottery = "puzzle_lottery.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]

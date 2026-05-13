@@ -1,0 +1,66 @@
+# Beispiel-Konfiguration — nach `config.yaml` kopieren und anpassen
+
+vanity:
+  # Pfad zum gebauten VanitySearch (install.sh setzt typischerweise /opt/puzzle-lottery/bin/VanitySearch)
+  binary: "/opt/puzzle-lottery/bin/VanitySearch"
+  gpu: true
+  gpu_ids: [0]
+  # Optional: explizites Grid "-g x,y" pro GPU; leer = VanitySearch-Default (-1,128)
+  grid: null
+  cpu_threads: null
+  # -b bereits über search_mode both
+  search_mode: "both"
+  # Maximales GPU-Treffer-Buffering (VanitySearch -m)
+  max_found: 65536
+  # True = -lottery (Zufallsbasis pro CUDA-Batch, empfohlen)
+  lottery_kernel_reseed: true
+  # Wenn lottery_kernel_reseed false: periodisches Rekey in Mkeys (-r)
+  rekey_mkeys: 1
+  extra_args: []
+
+orchestrator:
+  work_dir: "/var/lib/puzzle-lottery"
+  targets_file: "/opt/puzzle-lottery/targets.txt"
+  active_targets_name: "active_targets.txt"
+  reload_targets_interval_sec: 45
+  scan_mode: "pure_random"
+  # rotating / time_rotation: Anteil der gleichzeitig aktiven Adressen (0..1]
+  active_fraction: 0.35
+  # time_rotation: Minuten bis zur nächsten Zielgruppe
+  rotate_period_minutes: 20
+  # weighted: mehrfache Zeilen = höheres Gewicht
+  weighted_duplication_cap: 12
+  checkpoint_interval_sec: 60
+  benchmark_on_start: true
+
+telegram:
+  enabled: false
+  bot_token: "CHANGE_ME"
+  chat_id: "CHANGE_ME"
+  hourly_report: true
+  notify_startup_shutdown: true
+
+gpu_health:
+  nvidia_smi_path: "nvidia-smi"
+  temp_warn_c: 80
+  temp_critical_c: 88
+  util_low_percent: 75
+  mem_warn_percent: 95
+
+performance:
+  # VanitySearch-Stdout: gleitender Durchschnitt über N Proben für Dashboard
+  rate_smooth_samples: 6
+
+security:
+  fernet_key_env: "PUZZLE_LOTTERY_FERNET_KEY"
+  encrypted_hits_name: "hits.enc.jsonl"
+  plaintext_hits_name: "hits.txt"
+
+logging:
+  dir: "/var/log/puzzle-lottery"
+  level: "INFO"
+  max_bytes: 52428800
+  backup_count: 14
+
+paths:
+  vanity_output_hits: "vanity_hits.txt"

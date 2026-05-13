@@ -1,0 +1,17 @@
+[Unit]
+Description=Bitcoin Puzzle Lottery Scanner (VanitySearch + Orchestrator)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=CUDA_VISIBLE_DEVICES=0
+ExecStart=/opt/puzzle-lottery/venv/bin/puzzle-lottery -c /opt/puzzle-lottery/etc/config.yaml
+WorkingDirectory=/var/lib/puzzle-lottery
+Restart=always
+RestartSec=15
+User=root
+# Für GPU-Zugriff ggf. User anpassen und Gruppe 'video' / nvidia-persistenced nutzen
+
+[Install]
+WantedBy=multi-user.target
