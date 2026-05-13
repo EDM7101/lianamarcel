@@ -1,0 +1,5 @@
+# Bitcoin Puzzle Lottery Scanner — orchestrator
+PyYAML>=6.0.1
+rich>=13.7.0
+requests>=2.31.0
+cryptography>=42.0.0
